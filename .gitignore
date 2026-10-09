@@ -1,0 +1,15 @@
+node_modules
+dist
+
+# Variáveis de ambiente (use os arquivos .env.example como base)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Editores
+.vscode
+.idea
+.DS_Store

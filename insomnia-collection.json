@@ -1,0 +1,396 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-09T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v10",
+  "resources": [
+    {
+      "_id": "wrk_catalogo",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Catálogo de Produtos - Auth",
+      "description": "",
+      "scope": "collection",
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_catalogo",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3001",
+        "token": "cole_aqui_o_token_do_login"
+      },
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_catalogo",
+      "name": "1. Auth",
+      "metaSortKey": 0,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_01",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register - válido",
+      "description": "Esperado: 201 + token",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria@exemplo.com\",\n  \"password\": \"123456\",\n  \"name\": \"Maria\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 1,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_02",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register - e-mail inválido",
+      "description": "Esperado: 400",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria-sem-arroba\",\n  \"password\": \"123456\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 2,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_03",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register - senha curta",
+      "description": "Esperado: 400",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"outra@exemplo.com\",\n  \"password\": \"123\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 3,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_04",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register - e-mail já em uso",
+      "description": "Esperado: 400 (rode depois do registro válido)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria@exemplo.com\",\n  \"password\": \"123456\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 4,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_05",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login - válido",
+      "description": "Esperado: 200 + token. Copie o token para a variável \"token\" do ambiente.",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/login",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria@exemplo.com\",\n  \"password\": \"123456\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 5,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_06",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login - senha incorreta",
+      "description": "Esperado: 401",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/auth/login",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"maria@exemplo.com\",\n  \"password\": \"senha-errada\"\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 6,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_07",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Me - sem token",
+      "description": "Esperado: 401",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/auth/me",
+      "headers": [],
+      "body": {},
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 7,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_08",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Me - com token",
+      "description": "Esperado: 200 + dados do usuário",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/auth/me",
+      "headers": [],
+      "body": {},
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "parameters": [],
+      "metaSortKey": 8,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "fld_products",
+      "_type": "request_group",
+      "parentId": "wrk_catalogo",
+      "name": "2. Products",
+      "metaSortKey": 1,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_09",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Listar produtos (público)",
+      "description": "Esperado: 200",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/products",
+      "headers": [],
+      "body": {},
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 9,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_10",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Buscar produto por id (público)",
+      "description": "Esperado: 200 ou 404",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/products/1",
+      "headers": [],
+      "body": {},
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 10,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_11",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Criar produto - sem token",
+      "description": "Esperado: 401",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/products",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Headset Gamer\",\n  \"description\": \"Headset com som surround e microfone removível.\",\n  \"price\": 299.9,\n  \"imageUrl\": \"/images/headset.png\",\n  \"isFeatured\": true\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 11,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_12",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Criar produto - com token",
+      "description": "Esperado: 201",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/products",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Headset Gamer\",\n  \"description\": \"Headset com som surround e microfone removível.\",\n  \"price\": 299.9,\n  \"imageUrl\": \"/images/headset.png\",\n  \"isFeatured\": true\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "parameters": [],
+      "metaSortKey": 12,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_13",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Atualizar produto - sem token",
+      "description": "Esperado: 401",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/products/1",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"price\": 249.9\n}"
+      },
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 13,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_14",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Atualizar produto - com token",
+      "description": "Esperado: 200",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/products/1",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"price\": 249.9,\n  \"isFeatured\": false\n}"
+      },
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "parameters": [],
+      "metaSortKey": 14,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_15",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Remover produto - sem token",
+      "description": "Esperado: 401",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/products/1",
+      "headers": [],
+      "body": {},
+      "authentication": {},
+      "parameters": [],
+      "metaSortKey": 15,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    },
+    {
+      "_id": "req_16",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Remover produto - com token",
+      "description": "Esperado: 200",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/products/1",
+      "headers": [],
+      "body": {},
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "parameters": [],
+      "metaSortKey": 16,
+      "created": 1791504000000,
+      "modified": 1791504000000
+    }
+  ]
+}

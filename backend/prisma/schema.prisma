@@ -1,0 +1,37 @@
+// prisma/schema.prisma
+
+// Configuração do gerador - isso cria o Prisma Client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configuração da fonte de dados - de onde vêm os dados
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Lê do arquivo .env
+}
+
+// Nosso primeiro modelo - a tabela de produtos!
+model Product {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  price       Float
+  imageUrl    String   @map("image_url") // No banco será image_url
+  isFeatured  Boolean  @default(false)   @map("is_featured")
+  createdAt   DateTime @default(now())   @map("created_at")
+  updatedAt   DateTime @updatedAt        @map("updated_at")
+
+  @@map("products") // Nome da tabela no banco
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String   // Sempre será armazenado como hash, nunca texto puro
+  name      String?  // Campo opcional para nome do usuário
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users") // Nome da tabela no banco será "users"
+}

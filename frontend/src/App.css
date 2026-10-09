@@ -1,0 +1,24 @@
+/* Quase todo o visual vem do Bootstrap; aqui ficam só os ajustes do catálogo */
+
+.app-header {
+  background: linear-gradient(135deg, #6f42c1, #5a32a3);
+}
+
+.cart-pill {
+  min-width: 130px;
+}
+
+.product-card {
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12) !important;
+}
+
+.product-img {
+  height: 180px;
+  object-fit: cover;
+  background: #eef1f5;
+}
